@@ -1,13 +1,17 @@
-package application.routes
+package application.route
 
+import application.controller.TodoController
 import io.ktor.application.*
 import io.ktor.response.*
 import io.ktor.routing.*
+import org.koin.ktor.ext.inject
 
 fun Route.todoRoutes() {
     route("/todos") {
+        val todoController: TodoController by inject()
+
         get("/") {
-            call.respond("todo All")
+            call.respond(todoController.findAll())
         }
 
         get("/{id}") {

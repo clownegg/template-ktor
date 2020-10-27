@@ -2,7 +2,7 @@ package application
 
 import io.ktor.application.*
 import application.config.*
-import application.routes.setupRoutes
+import application.route.setupRoutes
 
 fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 

@@ -5,6 +5,7 @@ val ktor_version: String by project
 val kotlin_version: String by project
 val logback_version: String by project
 val exposed_version: String by project
+val koin_version: String by project
 val mysql_connector_version: String by project
 
 plugins {
@@ -32,6 +33,7 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:$logback_version")
     implementation("io.ktor:ktor-server-core:$ktor_version")
     implementation("io.ktor:ktor-jackson:$ktor_version")
+    implementation("org.koin:koin-ktor:$koin_version")
 
     // Exposed
     implementation("org.jetbrains.exposed:exposed-core:$exposed_version")

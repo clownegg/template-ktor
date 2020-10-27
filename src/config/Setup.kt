@@ -7,5 +7,6 @@ fun Application.setupConfig() {
     logConfig()
     jsonConfig()
     exceptionConfig()
+    koinConfig()
     databaseConfig()
 }
