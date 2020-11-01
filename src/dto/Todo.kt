@@ -2,7 +2,9 @@ package application.dto
 
 import application.domain.Todo
 import application.entity.TodoEntity
+import io.ktor.features.*
 import org.jetbrains.exposed.sql.andWhere
+import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.selectAll
 import org.jetbrains.exposed.sql.transactions.transaction
 
@@ -20,5 +22,21 @@ class TodoDTO {
                 isDeleted = it[TodoEntity.isDeleted]
             )
         }
+    }
+
+    fun findById(id: Int) = transaction {
+        val query = TodoEntity
+            .select { TodoEntity.id eq id }
+            .andWhere { TodoEntity.isEnabled eq true }
+            .andWhere { TodoEntity.isDeleted eq false }
+            .singleOrNull()
+            ?: throw NotFoundException()
+        Todo(
+            id = query[TodoEntity.id],
+            title = query[TodoEntity.title],
+            done = query[TodoEntity.done],
+            isEnabled = query[TodoEntity.isEnabled],
+            isDeleted = query[TodoEntity.isDeleted]
+        )
     }
 }

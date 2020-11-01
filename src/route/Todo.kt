@@ -9,13 +9,13 @@ import org.koin.ktor.ext.inject
 fun Route.todoRoutes() {
     route("/todos") {
         val todoController: TodoController by inject()
-
         get("/") {
             call.respond(todoController.findAll())
         }
 
         get("/{id}") {
-            call.respond("todo one")
+            val id = call.parameters["id"]?.toIntOrNull() ?: 0
+            call.respond(todoController.findById(id))
         }
 
         post("/") {
