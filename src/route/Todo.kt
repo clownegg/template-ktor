@@ -1,7 +1,10 @@
 package application.route
 
 import application.controller.TodoController
+import application.domain.Todo
 import io.ktor.application.*
+import io.ktor.http.*
+import io.ktor.request.*
 import io.ktor.response.*
 import io.ktor.routing.*
 import org.koin.ktor.ext.inject
@@ -14,20 +17,33 @@ fun Route.todoRoutes() {
         }
 
         get("/{id}") {
-            val id = call.parameters["id"]?.toIntOrNull() ?: 0
-            call.respond(todoController.findById(id))
+            val id = call.parameters["id"]?.toIntOrNull()
+            if (id == null)
+                call.respond(HttpStatusCode.BadRequest)
+            else
+                call.respond(todoController.findById(id))
         }
 
         post("/") {
-            call.respond("todo create")
+            val body = call.receive<Todo>()
+            call.respond(todoController.create(body))
         }
 
         put("/{id}") {
-            call.respond("todo update")
+            val id = call.parameters["id"]?.toIntOrNull()
+            val body = call.receive<Todo>()
+            if (id == null)
+                call.respond(HttpStatusCode.BadRequest)
+            else
+                call.respond(todoController.update(id, body))
         }
 
         delete("/{id}") {
-            call.respond("todo delete")
+            val id = call.parameters["id"]?.toIntOrNull()
+            if (id == null)
+                call.respond(HttpStatusCode.BadRequest)
+            else
+                call.respond(todoController.delete(id))
         }
     }
 }
