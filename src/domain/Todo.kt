@@ -1,6 +1,6 @@
-package application.vo
+package application.domain
 
-data class TodoVO(
+data class Todo(
     var id: Int? = null,
     var title: String,
     var done: Boolean = false,

@@ -2,7 +2,7 @@ package application.entity
 
 import org.jetbrains.exposed.sql.Table
 
-object Todo : Table("t_todos") {
+object TodoEntity : Table("t_todos") {
     val id = integer("id").autoIncrement()
     val title = varchar("title", 255)
     val done = bool("done")

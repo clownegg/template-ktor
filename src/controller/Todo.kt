@@ -1,9 +1,7 @@
 package application.controller
 
-import application.vo.TodoVO
+import application.service.TodoService
 
-class TodoController {
-    fun findAll() = listOf<TodoVO>(
-            TodoVO(1, "test", false)
-    )
+class TodoController(private val todoService: TodoService) {
+    fun findAll() = todoService.findAll()
 }
