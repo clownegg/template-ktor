@@ -61,8 +61,9 @@ class TodoDTO {
     }
 
     fun delete(id: Int) = transaction {
-        TodoEntity.deleteIgnoreWhere {
-            TodoEntity.id eq id and (TodoEntity.isEnabled eq true) and (TodoEntity.isDeleted eq false)
+        TodoEntity.update({ TodoEntity.id eq id}) {
+            it[isEnabled] = false
+            it[isDeleted] = true
         }
     }
 }
